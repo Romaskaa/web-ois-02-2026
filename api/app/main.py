@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 
 from app.routers import catalog, events, system
 
@@ -14,6 +16,16 @@ app = FastAPI(
     version="0.2.0",
     openapi_tags=TAGS,
 )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error_handler(request, exc: RequestValidationError):
+    details = "; ".join(
+        f"{'.'.join(map(str, error['loc']))}: {error['msg']}"
+        for error in exc.errors()
+    )
+    return JSONResponse(status_code=422, content={"detail": details})
+
 
 app.include_router(system.router)
 app.include_router(catalog.router)

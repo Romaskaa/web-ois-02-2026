@@ -5,7 +5,7 @@ description = "API студ афиши"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]==0.143.0",
-    "pedantic==3.0.5"
+    "pydantic==2.14.3"
 ]
 
 [build-system]

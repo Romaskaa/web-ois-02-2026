@@ -1,4 +1,4 @@
-from pydantic import AwareDatetime, BaseModel, Field, model_validator
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 
 
 class Club(BaseModel):
@@ -56,3 +56,13 @@ class EventPage(BaseModel):
 
 class ErrorResponse(BaseModel):
     detail: str = Field(examples=["Мероприятие не найдено"])
+
+
+class ClubCreate(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
+
+    name: str = Field(
+        min_length=2,
+        max_length=100,
+        examples=["Астрономический клуб"],
+    )

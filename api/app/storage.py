@@ -48,3 +48,10 @@ _event_ids = count(start=len(EVENTS) + 1)
 
 def next_event_id() -> int:
     return next(_event_ids)
+
+
+_clubs_ids = count(start=max(CLUBS, default=0) + 1)
+
+
+def next_club_id() -> int:
+    return next(_clubs_ids)
